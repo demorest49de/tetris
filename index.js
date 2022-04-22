@@ -53,10 +53,10 @@ const game = {
 
     },
 
-    viewArea(){
+    get viewArea(){
         const area = JSON.parse(JSON.stringify(this.area))
         const {x, y, block: tetromino} = this.activeTetromino
-        // console.log(tetromino)
+         console.table(tetromino)
         for (let i = 0; i < tetromino.length; i++) {
              const row = tetromino[i]
             for (let j = 0; j < row.length; j++) {
@@ -65,13 +65,9 @@ const game = {
                 }
             }
         }
-        // console.log(area)
+        return area
     },
 }
-
-game.viewArea()
-
-
 
 // otrisovka
 const container = document.querySelector('.container')
@@ -85,7 +81,7 @@ canvas.height = _SIZEBLOCK * 20
 
 const context = canvas.getContext('2d')
 
-const showArea = area => {
+const showArea = (area) => {
     for (let y = 0; y < area.length; y++) {
         const line = area[y]
 
@@ -107,4 +103,4 @@ const showArea = area => {
     }
 }
 
-showArea(game.area)
+showArea(game.viewArea)
