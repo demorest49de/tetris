@@ -1,3 +1,11 @@
+html{
+    margin: 0;
+    padding: 0;
+}
+
+*{
+    box-sizing: border-box;
+}
 h1 {
     text-align: center;
     margin-bottom: 50px;
@@ -13,7 +21,7 @@ body {
 }
 
 .game-area {
-    border: solid black;
+    border: solid mediumblue;
     border-width: 0 2px 3px 2px;
     display: block;
 }
