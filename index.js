@@ -1,5 +1,4 @@
 const _SIZEBLOCK = 30
-// todo peremestit' v game
 
 
 // mehanika
@@ -77,23 +76,25 @@ const game = {
     moveDown() {
         if (this.checkOutPosition(this.activeTetrаmino.x, this.activeTetrаmino.y + 1)) {
             this.activeTetrаmino.y += 1
-        }else {
+        } else {
             this.stopMove()
         }
     },
 
-    checkBorder(){
+    checkBorder() {
         if (game.previouslyPressedKey === 'ArrowLeft' &&
             !this.checkOutPosition(this.activeTetrаmino.x, this.activeTetrаmino.y)) {
             this.activeTetrаmino.x += 1
-        }
-        else if(game.previouslyPressedKey === 'ArrowRight' &&
-            !this.checkOutPosition(this.activeTetrаmino.x, this.activeTetrаmino.y)){
+        } else if (game.previouslyPressedKey === 'ArrowRight' &&
+            !this.checkOutPosition(this.activeTetrаmino.x, this.activeTetrаmino.y)) {
             this.activeTetrаmino.x -= 1
         }
     },
 
     rotateTetromino() {
+        /*todo сделать проверку для что бы фигура после ротации не попадала
+        *  в другую фигуру и не вращалась после того как опустится */
+
         this.activeTetrаmino.rotationIndex =
             this.activeTetrаmino.rotationIndex < 3 ?
                 this.activeTetrаmino.rotationIndex + 1 : 0
@@ -139,8 +140,8 @@ const game = {
         return true
     },
 
-    stopMove(){
-        const {x,y,block: tetrаmino} = this.activeTetrаmino
+    stopMove() {
+        const {x, y, block: tetrаmino} = this.activeTetrаmino
 
         for (let i = 0; i < tetrаmino.length; i++) {
             const row = tetrаmino[i]
@@ -188,12 +189,28 @@ const showArea = (area) => {
         }
     }
 }
+let isEnterPressed = false
+window.addEventListener('keyup', e => {
+    if (e.code === 'Enter') {
+        isEnterPressed = true
+        window.removeEventListener('keyup', e)
+    }
+})
 
-// window - samiy glavniy object
+
+// window - samiy glavniy object,
 // tak kak document vhodit v window
 window.addEventListener('keydown', e => {
     const key = e.code
-        switch (key) {
+/*Напишите обработчик события по нажатию на Enter, чтобы начать игру
+Только после нажатия на Enter появляется игровое поле и можно двигать фигуры*/
+
+    if (!isEnterPressed) {
+        console.log(isEnterPressed)
+        return
+    }
+
+    switch (key) {
         case 'ArrowLeft':
             game.moveLeft()
             showArea(game.viewArea)
