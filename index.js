@@ -25,8 +25,8 @@ const game = {
         ['o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'],
         ['o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'],
         ['o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'x'],
-        ['o', 'o', 'o', 'o', 'x', 'x', 'o', 'o', 'o', 'x'],
-        ['o', 'o', 'o', 'o', 'x', 'x', 'o', 'o', 'x', 'x']
+        ['o', 'o', 'o', 'o', 'p', 'p', 'o', 'o', 'o', 'x'],
+        ['o', 'o', 'o', 'o', 'p', 'p', 'o', 'o', 'x', 'x']
     ],
 
     activeTetrаmino: {
@@ -94,7 +94,6 @@ const game = {
     },
 
     rotateTetromino() {
-        // console.log(previouslyPressedKey)
         this.activeTetrаmino.rotationIndex =
             this.activeTetrаmino.rotationIndex < 3 ?
                 this.activeTetrаmino.rotationIndex + 1 : 0
@@ -111,7 +110,7 @@ const game = {
         for (let i = 0; i < tetrаmino.length; i++) {
             const row = tetrаmino[i]
             for (let j = 0; j < row.length; j++) {
-                if (row[j] === 'x') {
+                if (row[j] !== 'o') {
                     area[y + i][x + j] = tetrаmino[i][j]
                 }
             }
@@ -131,7 +130,7 @@ const game = {
                     // фигура не уходит слева и справа за границы стакана
                     !this.area[y + i][x + j] ||
                     // фигура не проваливается в фигуру
-                    this.area[y + i][x + j] === 'x'
+                    this.area[y + i][x + j] !== 'o'
                 ) {
                     return false
                 }
@@ -146,7 +145,7 @@ const game = {
         for (let i = 0; i < tetrаmino.length; i++) {
             const row = tetrаmino[i]
             for (let j = 0; j < row.length; j++) {
-                if (row[j] === 'x') {
+                if (row[j] !== 'o') {
                     console.log('')
                     this.area[y + i][x + j] = tetrаmino[i][j]
                 }
@@ -174,7 +173,7 @@ const showArea = (area) => {
 
         for (let x = 0; x < line.length; x++) {
             const block = line[x]
-            if (block === 'x') {
+            if (block !== 'o') {
                 context.fillStyle = 'black'
                 context.strokeStyle = 'white'
                 context.fillRect(x * _SIZEBLOCK,
