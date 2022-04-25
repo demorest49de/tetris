@@ -202,8 +202,8 @@ window.addEventListener('keyup', e => {
 // tak kak document vhodit v window
 window.addEventListener('keydown', e => {
     const key = e.code
-/*Напишите обработчик события по нажатию на Enter, чтобы начать игру
-Только после нажатия на Enter появляется игровое поле и можно двигать фигуры*/
+    /*Напишите обработчик события по нажатию на Enter, чтобы начать игру
+    Только после нажатия на Enter появляется игровое поле и можно двигать фигуры*/
 
     if (!isEnterPressed) {
         console.log(isEnterPressed)
