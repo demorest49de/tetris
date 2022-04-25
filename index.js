@@ -5,12 +5,22 @@ const game = new Game()
 game.createTetromino()
 
 const _SIZEBLOCK = 30
-const _COLUMNS = 10
-const _ROWS = 20
+export const _COLUMNS = 10
+export const _ROWS = 20
 
 
 // view
 const container = document.querySelector('.container')
+
+const colors = {
+    2: 'FireBrick',
+    J: 'CadetBlue',
+    I: 'Gold',
+    O: 'SlateBlue',
+    L: 'RoyalBlue',
+    T: 'Indigo',
+    S: 'MediumSeaGreen',
+}
 
 const canvas = document.createElement('canvas')
 canvas.classList.add('game-area')
@@ -29,7 +39,7 @@ const showArea = (area) => {
         for (let x = 0; x < line.length; x++) {
             const block = line[x]
             if (block !== 'o') {
-                context.fillStyle = 'black'
+                context.fillStyle = colors[block]
                 context.strokeStyle = 'white'
                 context.fillRect(x * _SIZEBLOCK,
                     y * _SIZEBLOCK,
@@ -61,7 +71,6 @@ window.addEventListener('keydown', e => {
     Только после нажатия на Enter появляется игровое поле и можно двигать фигуры*/
 
     if (!isEnterPressed) {
-        console.log(isEnterPressed)
         return
     }
 

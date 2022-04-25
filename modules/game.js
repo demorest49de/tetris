@@ -1,4 +1,5 @@
 import {tetrominoes} from "./tetrominoes.js"
+import {_ROWS, _COLUMNS} from "../index.js"
 
 /*model*/
 export class Game {
@@ -21,12 +22,14 @@ export class Game {
         ['o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'],
         ['o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'],
         ['o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'],
-        ['o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'x'],
-        ['o', 'o', 'o', 'o', 'p', 'p', 'o', 'o', 'o', 'x'],
-        ['o', 'o', 'o', 'o', 'p', 'p', 'o', 'o', 'x', 'x']
+        ['o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'],
+        ['o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'],
+        ['o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o']
     ]
 
     activeTetrаmino = this.createTetromino()
+
+    nextTetramino = this.createTetromino()
 
     createTetromino() {
         const keys = Object.keys(tetrominoes)
@@ -34,7 +37,6 @@ export class Game {
         const rotation = tetrominoes[randomLetter]
         const rotationIndex = Math.floor(Math.random() * rotation.length)
         const block = rotation[rotationIndex]
-
         return {
             block,
             rotationIndex,
@@ -42,6 +44,13 @@ export class Game {
             x: 3,
             y: 0,
         }
+    }
+
+    changeTetramino() {
+
+        this.activeTetrаmino = this.nextTetramino
+
+        this.nextTetramino = this.createTetromino()
     }
 
     moveLeft() {
@@ -65,10 +74,10 @@ export class Game {
     }
 
     checkBorder() {
-        if (game.previouslyPressedKey === 'ArrowLeft' &&
+        if (this.previouslyPressedKey === 'ArrowLeft' &&
             !this.checkOutPosition(this.activeTetrаmino.x, this.activeTetrаmino.y)) {
             this.activeTetrаmino.x += 1
-        } else if (game.previouslyPressedKey === 'ArrowRight' &&
+        } else if (this.previouslyPressedKey === 'ArrowRight' &&
             !this.checkOutPosition(this.activeTetrаmino.x, this.activeTetrаmino.y)) {
             this.activeTetrаmino.x -= 1
         }
@@ -135,5 +144,32 @@ export class Game {
                 }
             }
         }
+
+        this.changeTetramino()
+        this.clearRow()
+    }
+
+    clearRow() {
+        /*строки для удаления*/
+        const rows = []
+
+        for (let i = _ROWS - 1; i >= 0; i--) {
+            let countBlock = 0
+            for (let j = 0; j < _COLUMNS; j++) {
+                if(this.area[i][j] !== 'o'){
+                    countBlock += 1
+                }
+            }
+            if(!countBlock) break
+
+            if(countBlock === _COLUMNS){
+                rows.unshift(i)
+            }
+        }
+
+        rows.forEach(i=>{
+            this.area.splice(i)
+            this.area.unshift(Array(_COLUMNS).fill('o'))
+        })
     }
 }
