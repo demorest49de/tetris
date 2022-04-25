@@ -1,11 +1,12 @@
-import {game} from "./modules/game.js"
+import {Game} from "./modules/game.js"
+
+const game = new Game()
+
+game.createTetromino()
 
 const _SIZEBLOCK = 30
 const _COLUMNS = 10
 const _ROWS = 20
-
-// model
-
 
 
 // view
