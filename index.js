@@ -1,10 +1,11 @@
 const _SIZEBLOCK = 30
 // todo peremestit' v game
-let previouslyPressedKey
+
 
 // mehanika
 
 const game = {
+    previouslyPressedKey: '',
     area: [
         ['o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'],
         ['o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'],
@@ -82,11 +83,11 @@ const game = {
     },
 
     checkBorder(){
-        if (previouslyPressedKey === 'ArrowLeft' &&
+        if (game.previouslyPressedKey === 'ArrowLeft' &&
             !this.checkOutPosition(this.activeTetrаmino.x, this.activeTetrаmino.y)) {
             this.activeTetrаmino.x += 1
         }
-        else if(previouslyPressedKey === 'ArrowRight' &&
+        else if(game.previouslyPressedKey === 'ArrowRight' &&
             !this.checkOutPosition(this.activeTetrаmino.x, this.activeTetrаmino.y)){
             this.activeTetrаmino.x -= 1
         }
@@ -103,6 +104,7 @@ const game = {
     },
 
     get viewArea() {
+        // самый простой способ скопировать объект - черз JSON
         const area = JSON.parse(JSON.stringify(this.area))
         const {x, y, block: tetrаmino} = this.activeTetrаmino
 
@@ -125,7 +127,6 @@ const game = {
                 // фигура не проваливается в фигуру
                 if (tetromino[i][j] === 'o') continue
                 // фигура не проваливается в пол
-                console.log('x + j', +(x + j))
                 if (!this.area[y + i] ||
                     // фигура не уходит слева и справа за границы стакана
                     !this.area[y + i][x + j] ||
@@ -146,6 +147,7 @@ const game = {
             const row = tetrаmino[i]
             for (let j = 0; j < row.length; j++) {
                 if (row[j] === 'x') {
+                    console.log('')
                     this.area[y + i][x + j] = tetrаmino[i][j]
                 }
             }
@@ -173,7 +175,7 @@ const showArea = (area) => {
         for (let x = 0; x < line.length; x++) {
             const block = line[x]
             if (block === 'x') {
-                context.fillStyle = 'cyan'
+                context.fillStyle = 'black'
                 context.strokeStyle = 'white'
                 context.fillRect(x * _SIZEBLOCK,
                     y * _SIZEBLOCK,
@@ -196,12 +198,12 @@ window.addEventListener('keydown', e => {
         case 'ArrowLeft':
             game.moveLeft()
             showArea(game.viewArea)
-            previouslyPressedKey = key
+            game.previouslyPressedKey = key
             break
 
         case 'ArrowRight':
             game.moveRight()
-            previouslyPressedKey = key
+            game.previouslyPressedKey = key
             showArea(game.viewArea)
             break
 
