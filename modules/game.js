@@ -31,6 +31,7 @@ export class Game {
 
     nextTetramino = this.createTetromino()
 
+
     createTetromino() {
         const keys = Object.keys(tetrominoes)
         const randomLetter = keys[Math.floor(Math.random() * keys.length)]
@@ -54,12 +55,14 @@ export class Game {
     }
 
     moveLeft() {
+        /*todo фигура "палка" уходит за пределы стакана если прижать к стене*/
         if (this.checkOutPosition(this.activeTetrаmino.x - 1, this.activeTetrаmino.y)) {
             this.activeTetrаmino.x -= 1
         }
     }
 
     moveRight() {
+        /*todo фигура "палка" уходит за пределы стакана если прижать к стене*/
         if (this.checkOutPosition(this.activeTetrаmino.x + 1, this.activeTetrаmino.y)) {
             this.activeTetrаmino.x += 1
         }
@@ -139,7 +142,6 @@ export class Game {
             const row = tetrаmino[i]
             for (let j = 0; j < row.length; j++) {
                 if (row[j] !== 'o') {
-                    console.log('')
                     this.area[y + i][x + j] = tetrаmino[i][j]
                 }
             }
@@ -166,10 +168,12 @@ export class Game {
                 rows.unshift(i)
             }
         }
-
+        console.log(this.area)
         rows.forEach(i=>{
-            this.area.splice(i)
-            this.area.unshift(Array(_COLUMNS).fill('o'))
+            console.log(i)
+            this.area.splice(i, 1)
+            this.area.splice(0,0, (Array(_COLUMNS).fill('o')))
+            console.log(this.area)
         })
     }
 }

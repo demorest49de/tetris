@@ -2,8 +2,8 @@ import {Game} from "./modules/game.js"
 
 const game = new Game()
 
-game.createTetromino()
 
+// CONST
 const _SIZEBLOCK = 30
 export const _COLUMNS = 10
 export const _ROWS = 20
