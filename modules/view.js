@@ -3,6 +3,8 @@ import {_SIZEBLOCK, _COLUMNS, _ROWS} from "../index.js"
 export class View {
     constructor(container) {
         this.container = container
+
+        this.preview()
     }
 
     colors = {
@@ -17,6 +19,23 @@ export class View {
 
     canvas = document.createElement('canvas')
 
+    context = this.canvas.getContext('2d')
+
+    preview(){
+        const div = document.createElement('div')
+        const h1 = document.createElement('h1')
+
+
+        h1.innerText = 'Press Enter to start'
+        div.append(h1)
+        this.container.append(div)
+
+        div.className = 'preview'
+        const preview = document.querySelector('.preview')
+        preview.style.marginTop = '250px'
+        preview.style.fontSize = '25px'
+    }
+
     init() {
 
         this.canvas.classList.add('game-area')
@@ -25,9 +44,6 @@ export class View {
         this.canvas.width = _SIZEBLOCK * _COLUMNS
         this.canvas.height = _SIZEBLOCK * _ROWS
     }
-
-
-    context = this.canvas.getContext('2d')
 
     showArea(area) {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height)

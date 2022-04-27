@@ -7,10 +7,17 @@ export class Controller {
     init(codeKey){
         window.addEventListener('keydown', event =>{
             if(event.code === codeKey){
+                this.removePreview()
                 this.view.init()
                 this.start()
             }
         })
+    }
+
+    removePreview(){
+        const parent = document.querySelector('.container')
+        const child = document.querySelector('.preview')
+        parent.removeChild(child)
     }
 
     start(){
