@@ -168,7 +168,7 @@ export class Game {
                 rows.unshift(i)
             }
         }
-        console.log(this.area)
+
         rows.forEach(i=>{
             console.log(i)
             this.area.splice(i, 1)
