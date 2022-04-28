@@ -170,10 +170,8 @@ export class Game {
         }
 
         rows.forEach(i=>{
-            console.log(i)
             this.area.splice(i, 1)
             this.area.splice(0,0, (Array(_COLUMNS).fill('o')))
-            console.log(this.area)
         })
     }
 }

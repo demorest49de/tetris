@@ -37,7 +37,6 @@ export class View {
     }
 
     init() {
-
         this.canvas.classList.add('game-area')
         this.container.append(this.canvas)
 
